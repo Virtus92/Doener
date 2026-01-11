@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Linz a Döner - Premium authentische türkische Küche in Linz. Traditionelle Döner-Spezialitäten, Iskender, Beyti-Sarma und mehr.">
+    <title>Linz a Döner - Premium Türkische Küche in Linz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-burgundy: #8B1538;
+            --rich-gold: #D4AF37;
+            --dark-charcoal: #0D0D0D;
+            --warm-cream: #F5F1E8;
+            --terracotta: #C9543F;
+            --deep-green: #2D5016;
+            --accent-red: #D62828;
+            --soft-gray: #E8E4DC;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--warm-cream);
+            background: var(--dark-charcoal);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Cursor - only on desktop with pointer device */
+        @media (hover: hover) and (pointer: fine) and (min-width: 968px) {
+            body {
+                cursor: none;
+            }
+
+            .custom-cursor,
+            .cursor-dot {
+                display: block;
+            }
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--rich-gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            display: none;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--rich-gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.1s ease;
+            display: none;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 5%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--rich-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40%;
+            height: 3px;
+            background: var(--deep-burgundy);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--warm-cream);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--deep-burgundy), var(--rich-gold));
+            transition: transform 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--rich-gold);
+        }
+
+        .nav-menu a:hover::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 2px;
+            background: var(--rich-gold);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 21, 56, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.2) 0%, transparent 50%),
+                linear-gradient(180deg, #0D0D0D 0%, #1a1414 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><path d="M 0 400 Q 300 200 600 400 T 1200 400 L 1200 800 L 0 800 Z" fill="%238B1538" opacity="0.05"/></svg>') no-repeat bottom center;
+            background-size: cover;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 1000px;
+            padding: 2rem;
+            animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--warm-cream) 0%, var(--rich-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--soft-gray);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--soft-gray);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--deep-burgundy) 0%, var(--accent-red) 100%);
+            color: white;
+            box-shadow: 0 10px 40px rgba(139, 21, 56, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-red) 0%, var(--deep-burgundy) 100%);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(139, 21, 56, 0.6);
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--rich-gold);
+            border: 2px solid var(--rich-gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--rich-gold);
+            color: var(--dark-charcoal);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            color: var(--rich-gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            color: var(--warm-cream);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--soft-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Menu Section */
+        #menu {
+            background: linear-gradient(180deg, #0D0D0D 0%, #1a1414 50%, #0D0D0D 100%);
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--deep-burgundy);
+            color: var(--warm-cream);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--deep-burgundy);
+            border-color: var(--rich-gold);
+            color: var(--rich-gold);
+            transform: translateY(-2px);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.1) 0%, rgba(13, 13, 13, 0.8) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
+            transition: left 0.4s ease;
+            z-index: 0;
+        }
+
+        .menu-item:hover::before {
+            left: 0;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--rich-gold);
+            box-shadow: 0 20px 60px rgba(139, 21, 56, 0.4);
+        }
+
+        .menu-item-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .menu-item-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--rich-gold);
+            line-height: 1.3;
+        }
+
+        .menu-item-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--warm-cream);
+            white-space: nowrap;
+        }
+
+        .menu-item-description {
+            color: var(--soft-gray);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item-details {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .detail-badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--rich-gold);
+        }
+
+        .allergens {
+            color: var(--terracotta);
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+            font-style: italic;
+        }
+
+        /* Drinks Section */
+        .drinks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 3rem auto 0;
+        }
+
+        .drink-item {
+            background: rgba(139, 21, 56, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .drink-item:hover {
+            background: rgba(139, 21, 56, 0.2);
+            border-color: var(--rich-gold);
+            transform: translateY(-5px);
+        }
+
+        .drink-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--warm-cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .drink-size {
+            color: var(--soft-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .drink-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--rich-gold);
+        }
+
+        /* About Section */
+        #about {
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(139, 21, 56, 0.2) 0%, transparent 50%),
+                #0D0D0D;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--rich-gold);
+            margin-bottom: 2rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--soft-gray);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.15) 0%, rgba(13, 13, 13, 0.8) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.25) 0%, rgba(13, 13, 13, 0.9) 100%);
+            border-color: var(--rich-gold);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            font-size: 1.3rem;
+            color: var(--warm-cream);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--soft-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.2) 0%, #0D0D0D 100%);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.15) 0%, rgba(13, 13, 13, 0.8) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .contact-card:hover {
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.25) 0%, rgba(13, 13, 13, 0.9) 100%);
+            border-color: var(--rich-gold);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(139, 21, 56, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.5rem;
+            color: var(--rich-gold);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-card p {
+            color: var(--warm-cream);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--rich-gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--soft-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--rich-gold);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .nav-menu {
+                position: fixed;
+                right: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: rgba(13, 13, 13, 0.98);
+                width: 100%;
+                padding: 3rem 5%;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                border-top: 1px solid rgba(212, 175, 55, 0.2);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(10px, 10px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(8px, -8px);
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor,
+            .cursor-dot {
+                display: none;
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--rich-gold);
+            margin-bottom: 2rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 3px;
+            background: rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--deep-burgundy), var(--rich-gold));
+            animation: loading 2s ease-in-out;
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">LINZ A DÖNER</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo-container">
+            <div class="logo">Linz a Döner</div>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Speisekarte</a></li>
+            <li><a href="#about">Über Uns</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-subtitle">Authentische Türkische Küche</div>
+            <h1 class="hero-title">Linz a Döner</h1>
+            <p class="hero-description">
+                Erleben Sie wahre türkische Gastfreundschaft und Geschmack. 
+                Traditionelle Rezepte, frische Zutaten, leidenschaftlich zubereitet.
+            </p>
+            <div class="cta-group">
+                <a href="#menu" class="btn btn-primary">Speisekarte ansehen</a>
+                <a href="#contact" class="btn btn-secondary">Uns besuchen</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="section-header">
+            <div class="section-label">Speisekarte</div>
+            <h2 class="section-title">Unsere Köstlichkeiten</h2>
+            <p class="section-description">
+                Jedes Gericht wird mit höchster Sorgfalt und den besten Zutaten zubereitet
+            </p>
+        </div>
+
+        <div class="menu-categories">
+            <button class="category-btn active">Alle</button>
+            <button class="category-btn">Döner-Varianten</button>
+            <button class="category-btn">Getränke</button>
+        </div>
+
+        <div class="menu-grid">
+            <!-- Iskender-Döner -->
+            <div class="menu-item reveal">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Iskender-Döner</h3>
+                        <span class="menu-item-price">€ 18,90</span>
+                    </div>
+                    <p class="menu-item-description">
+                        Zartes Rindfleisch auf frischem Brot, verfeinert mit würziger Tomatensauce und cremigem Joghurt
+                    </p>
+                    <div class="menu-item-details">
+                        <span class="detail-badge">ca. 220g</span>
+                        <span class="detail-badge">Rindfleisch</span>
+                    </div>
+                    <div class="allergens">Allergene: A/C/G/L</div>
+                </div>
+            </div>
+
+            <!-- Beyti-Sarma-Döner -->
+            <div class="menu-item reveal">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Beyti-Sarma-Döner</h3>
+                        <span class="menu-item-price">€ 18,90</span>
+                    </div>
+                    <p class="menu-item-description">
+                        Saftiges Rindfleisch mit duftendem Reis, Fladenbrot und aromatischer Tomatensauce
+                    </p>
+                    <div class="menu-item-details">
+                        <span class="detail-badge">ca. 220g</span>
+                        <span class="detail-badge">Rindfleisch</span>
+                    </div>
+                    <div class="allergens">Allergene: A/C/G/L</div>
+                </div>
+            </div>
+
+            <!-- Döner-Teller -->
+            <div class="menu-item reveal">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Döner-Teller</h3>
+                        <span class="menu-item-price">€ 16,90</span>
+                    </div>
+                    <p class="menu-item-description">
+                        Großzügige Portion Rindfleisch mit Pommes oder Reis und frischem Fladenbrot
+                    </p>
+                    <div class="menu-item-details">
+                        <span class="detail-badge">ca. 220g</span>
+                        <span class="detail-badge">Rindfleisch</span>
+                        <span class="detail-badge">Pommes oder Reis</span>
+                    </div>
+                    <div class="allergens">Allergene: A/C/G/L</div>
+                </div>
+            </div>
+
+            <!-- Linza Döner Klein -->
+            <div class="menu-item reveal">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Linza Döner klein</h3>
+                        <span class="menu-item-price">€ 7,90</span>
+                    </div>
+                    <p class="menu-item-description">
+                        Unser klassischer Döner mit Rindfleisch - perfekt für den kleinen Hunger
+                    </p>
+                    <div class="menu-item-details">
+                        <span class="detail-badge">ca. 120g</span>
+                        <span class="detail-badge">Rindfleisch</span>
+                    </div>
+                    <div class="allergens">Allergene: A/C/G/L</div>
+                </div>
+            </div>
+
+            <!-- Linza Döner Groß -->
+            <div class="menu-item reveal">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Linza Döner groß</h3>
+                        <span class="menu-item-price">€ 9,90</span>
+                    </div>
+                    <p class="menu-item-description">
+                        Unser klassischer Döner mit Rindfleisch in großzügiger Größe
+                    </p>
+                    <div class="menu-item-details">
+                        <span class="detail-badge">ca. 180g</span>
+                        <span class="detail-badge">Rindfleisch</span>
+                    </div>
+                    <div class="allergens">Allergene: A/C/G/L</div>
+                </div>
+            </div>
+
+            <!-- Linza Dürüm Klein -->
+            <div class="menu-item reveal">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Linza Dürüm klein</h3>
+                        <span class="menu-item-price">€ 7,90</span>
+                    </div>
+                    <p class="menu-item-description">
+                        Rindfleisch gerollt in dünnem Yufka-Teig - praktisch für unterwegs
+                    </p>
+                    <div class="menu-item-details">
+                        <span class="detail-badge">ca. 120g</span>
+                        <span class="detail-badge">Rindfleisch</span>
+                    </div>
+                    <div class="allergens">Allergene: A/C/G/L</div>
+                </div>
+            </div>
+
+            <!-- Linza Dürüm Groß -->
+            <div class="menu-item reveal">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Linza Dürüm groß</h3>
+                        <span class="menu-item-price">€ 9,90</span>
+                    </div>
+                    <p class="menu-item-description">
+                        Großzügiger Dürüm mit saftigem Rindfleisch, gerollt in Yufka-Teig
+                    </p>
+                    <div class="menu-item-details">
+                        <span class="detail-badge">ca. 180g</span>
+                        <span class="detail-badge">Rindfleisch</span>
+                    </div>
+                    <div class="allergens">Allergene: A/C/G/L</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drinks Section -->
+        <div class="section-header" style="margin-top: 6rem;">
+            <div class="section-label">Getränke</div>
+            <h2 class="section-title">Erfrischungen</h2>
+        </div>
+
+        <div class="drinks-grid">
+            <div class="drink-item reveal">
+                <div class="drink-name">Ayran</div>
+                <div class="drink-size">Traditionell türkisch</div>
+                <div class="drink-price">€ 2,50</div>
+            </div>
+
+            <div class="drink-item reveal">
+                <div class="drink-name">Almdudler</div>
+                <div class="drink-size">0,5l PET-Flasche</div>
+                <div class="drink-price">€ 3,20</div>
+            </div>
+
+            <div class="drink-item reveal">
+                <div class="drink-name">Coca-Cola</div>
+                <div class="drink-size">0,5l PET-Flasche</div>
+                <div class="drink-price">€ 3,20</div>
+            </div>
+
+            <div class="drink-item reveal">
+                <div class="drink-name">Coca-Cola Zero</div>
+                <div class="drink-size">0,5l PET-Flasche</div>
+                <div class="drink-price">€ 3,20</div>
+            </div>
+
+            <div class="drink-item reveal">
+                <div class="drink-name">Fanta</div>
+                <div class="drink-size">0,5l PET-Flasche</div>
+                <div class="drink-price">€ 3,20</div>
+            </div>
+
+            <div class="drink-item reveal">
+                <div class="drink-name">Fuzetea</div>
+                <div class="drink-size">0,5l PET-Flasche</div>
+                <div class="drink-price">€ 3,20</div>
+            </div>
+
+            <div class="drink-item reveal">
+                <div class="drink-name">MezzoMix</div>
+                <div class="drink-size">0,5l PET-Flasche</div>
+                <div class="drink-price">€ 3,20</div>
+            </div>
+
+            <div class="drink-item reveal">
+                <div class="drink-name">Römerquelle</div>
+                <div class="drink-size">0,5l PET-Flasche</div>
+                <div class="drink-price">€ 3,20</div>
+            </div>
+
+            <div class="drink-item reveal">
+                <div class="drink-name">Sprite</div>
+                <div class="drink-size">0,5l PET-Flasche</div>
+                <div class="drink-price">€ 3,20</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <div class="section-label">Über Uns</div>
+            <h2 class="section-title">Tradition trifft Qualität</h2>
+        </div>
+
+        <div class="about-content">
+            <div class="about-text reveal">
+                <h3>Unsere Geschichte</h3>
+                <p>
+                    Seit über einem Jahrzehnt bringen wir die authentischen Aromen der türkischen Küche nach Linz. 
+                    Jedes Gericht erzählt eine Geschichte von Tradition, Handwerkskunst und Leidenschaft.
+                </p>
+                <p>
+                    Von der sorgfältigen Auswahl der Zutaten bis zur kunstvollen Zubereitung - 
+                    bei uns steht Qualität an erster Stelle. Unser Team besteht aus erfahrenen Köchen, 
+                    die ihr Handwerk perfekt beherrschen.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🥩</div>
+                    <h4>Premium Qualität</h4>
+                    <p>Nur die besten Zutaten kommen in unsere Küche. Frisch, hochwertig, ausgewählt.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">👨‍🍳</div>
+                    <h4>Meisterköche</h4>
+                    <p>Unser Team vereint jahrzehntelange Erfahrung in traditioneller türkischer Küche.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">❤️</div>
+                    <h4>Mit Liebe gemacht</h4>
+                    <p>Jedes Gericht wird mit Sorgfalt und Hingabe für Sie zubereitet.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">⭐</div>
+                    <h4>Authentisch</h4>
+                    <p>Originale Rezepte aus der türkischen Küche, treu bewahrt und perfektioniert.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <div class="section-label">Kontakt</div>
+            <h2 class="section-title">Besuchen Sie uns</h2>
+            <p class="section-description">
+                Wir freuen uns darauf, Sie in unserem Restaurant begrüßen zu dürfen
+            </p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card reveal">
+                <div class="contact-icon">📍</div>
+                <h3>Adresse</h3>
+                <p>Linz, Österreich</p>
+            </div>
+
+            <div class="contact-card reveal">
+                <div class="contact-icon">🕐</div>
+                <h3>Öffnungszeiten</h3>
+                <p>Montag - Sonntag<br>10:00 - 22:00 Uhr</p>
+            </div>
+
+            <div class="contact-card reveal">
+                <div class="contact-icon">📞</div>
+                <h3>Telefon</h3>
+                <p>+43 xxx xxx xxx</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">LINZ A DÖNER</div>
+            <p class="footer-text">© 2024 Linz a Döner. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loader - hide when page is fully loaded
+        window.addEventListener('load', () => {
+            // Small delay for smooth transition
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 500);
+        });
+
+        // Custom Cursor (Desktop only with pointer device)
+        if (window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 968px)').matches) {
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorDot = document.querySelector('.cursor-dot');
+
+            if (cursor && cursorDot) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                    cursorDot.style.left = e.clientX + 'px';
+                    cursorDot.style.top = e.clientY + 'px';
+                });
+
+                document.querySelectorAll('a, button').forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.style.transform = 'scale(1.5)';
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursor.style.transform = 'scale(1)';
+                    });
+                });
+            }
+        }
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Category filtering (simple version)
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // In a real implementation, you would filter menu items here
+            });
+        });
+    </script>
+</body>
+</html>
