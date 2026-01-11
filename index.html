@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Linz a Döner - Authentische türkische Küche in Linz">
-    <title>Linz a Döner - Authentische türkische Küche</title>
+    <meta name="description" content="Linz a Döner - Premium authentische türkische Küche in Linz. Traditionelle Döner-Spezialitäten, Iskender, Beyti-Sarma und mehr.">
+    <title>Linz a Döner - Premium Türkische Küche in Linz</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -33,9 +33,16 @@
             line-height: 1.6;
         }
 
-        /* Custom Cursor */
-        body {
-            cursor: none;
+        /* Custom Cursor - only on desktop with pointer device */
+        @media (hover: hover) and (pointer: fine) and (min-width: 968px) {
+            body {
+                cursor: none;
+            }
+
+            .custom-cursor,
+            .cursor-dot {
+                display: block;
+            }
         }
 
         .custom-cursor {
@@ -47,7 +54,7 @@
             pointer-events: none;
             z-index: 9999;
             transition: all 0.1s ease;
-            mix-blend-mode: difference;
+            display: none;
         }
 
         .cursor-dot {
@@ -59,6 +66,7 @@
             pointer-events: none;
             z-index: 10000;
             transition: all 0.1s ease;
+            display: none;
         }
 
         /* Navigation */
@@ -1165,35 +1173,36 @@
     </footer>
 
     <script>
-        // Loader
+        // Loader - hide when page is fully loaded
         window.addEventListener('load', () => {
+            // Small delay for smooth transition
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 2000);
+            }, 500);
         });
 
-        // Custom Cursor (Desktop only)
-        if (window.innerWidth > 968) {
+        // Custom Cursor (Desktop only with pointer device)
+        if (window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 968px)').matches) {
             const cursor = document.querySelector('.custom-cursor');
             const cursorDot = document.querySelector('.cursor-dot');
 
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                cursorDot.style.left = e.clientX + 'px';
-                cursorDot.style.top = e.clientY + 'px';
-            });
+            if (cursor && cursorDot) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                    cursorDot.style.left = e.clientX + 'px';
+                    cursorDot.style.top = e.clientY + 'px';
+                });
 
-            document.querySelectorAll('a, button').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'scale(1.5)';
-                    cursor.style.borderColor = 'var(--rich-gold)';
+                document.querySelectorAll('a, button').forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.style.transform = 'scale(1.5)';
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursor.style.transform = 'scale(1)';
+                    });
                 });
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'scale(1)';
-                    cursor.style.borderColor = 'var(--rich-gold)';
-                });
-            });
+            }
         }
 
         // Navbar scroll
